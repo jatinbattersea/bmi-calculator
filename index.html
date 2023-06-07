@@ -661,13 +661,13 @@
         // Convert height to inches if necessary
         let height;
         if (heightUnit === "ft") {
-          height = height1 * 12;
+          height = height1 * 0.304;
         } else if (heightUnit === "in") {
-          height = height2 * 12;
+          height = height2 * 0.0254;
         } else if (heightUnit === "cm") {
-          height = height1 * 12;
+          height = height1 * 0.01;
         } else {
-
+          height = (height1 * 0.304) + (height2 * 0.0254);
         }
 
         // Calculate BMI
