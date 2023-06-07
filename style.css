@@ -1,0 +1,223 @@
+.bmi-cal .row {
+  border: 7px solid #e0edcd;
+  padding: 30px;
+}
+
+.bmi_gender {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.m-gender img,
+.f-gender img {
+  border: 1px solid #d9d9d9;
+  border-radius: 50%;
+  padding: 5px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.bmi-cal input[type="text"] {
+  width: 100%;
+  min-height: 42px;
+  border: solid 1px #ccc;
+  padding: 5px 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.bmi-weight td:first-child {
+  width: 80px;
+}
+
+.bmi-cal .span {
+  position: absolute;
+  padding: 10px 5px;
+  border: 1px solid #ccc;
+  border-radius: 0 4px 4px 0;
+  line-height: 20px;
+  min-width: 55px;
+  right: 0;
+  text-align: center;
+}
+
+.bmi-weight .wt {
+  position: relative;
+}
+
+.bmi-cal tr td {
+  vertical-align: text-bottom;
+}
+
+.bmi-cal_btn .btn {
+  background-color: #0a4235;
+  color: #fff;
+  border-radius: 20px;
+  padding: 6px 25px;
+  box-shadow: 0px 5px 0px 0px #64a405;
+}
+
+.bmi-cal_btn .btn:hover {
+  border: 1px solid #0a4235;
+  background-color: white;
+  color: #0a4235;
+}
+
+.bmi-cal_btn .btn.btn-sec {
+  border: 1px solid #0a4235;
+  background-color: white;
+  color: #0a4235;
+}
+
+.bmi-cal_btn .btn.btn-sec:hover {
+  background-color: #0a4235;
+  color: #fff;
+}
+
+.result-bmi {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.result-val {
+  font-size: 20px;
+  background-color: #0a4235;
+  color: #fff;
+  padding: 6px 15px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.bmi-result-define {
+  background-color: #e0edcd;
+  padding: 25px;
+  margin-top: 30px;
+  border-radius: 4px;
+}
+
+.wt-m {
+  width: 120px;
+  background-color: red;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 4px 0px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.Underweight {
+  background-color: #ff8080;
+}
+
+.Healthy {
+  background-color: #008137;
+}
+
+.Overweight {
+  background-color: #c3af00;
+}
+
+.Obesity {
+  background-color: #ff0000;
+}
+
+.bmi-feet,
+.bmi-inches {
+  position: relative;
+}
+
+.bmi-feet input[type="text"] {
+}
+
+/* dropdown */
+/* .change-icon {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-icon {
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .drop-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    display: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f1f1f1;
+    list-style-type: none;
+  }
+  
+  .drop-menu li {
+    padding: 10px;
+  }
+  
+  .drop-menu a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .change-icon:hover .drop-menu {
+    display: block;
+  } */
+
+/* dropdown end */
+
+/* dropdown */
+.change-icon .btn-drop {
+  border: 1px solid #ccc;
+  padding: 8px 15px;
+}
+
+.change-icon .btn-check:focus + .btn,
+.btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.change-icon .dropdown-menu {
+  min-width: auto;
+  padding: 0px;
+}
+
+.change-icon .dropdown-menu li a {
+  padding: 6px 16px;
+}
+
+#myDIV {
+  display: none;
+}
+
+#myDIV2 {
+  display: block;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: transparent;
+}
+
+/* dropdown */
+
+@media only screen and (max-width: 560px) {
+  .bmi-cal .row {
+    border: transparent;
+    padding: 0px;
+  }
+
+  .bmi-cal .span {
+    min-width: 35px;
+  }
+}
+
+@media screen and (max-width: 992px) and (min-width: 556px) {
+  .bmi-cal .span {
+    min-width: 34px;
+  }
+}
