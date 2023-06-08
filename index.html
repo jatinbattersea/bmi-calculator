@@ -216,11 +216,11 @@
                             <div class="d-flex">
                               <div class="ft-in d-flex">
                                 <div class="bmi-feet me-2" id="f_cell" style="display: block">
-                                  <input type="text" name="r_ca" value="0" required />
+                                  <input type="text" name="r_ca" id="r_ca" value="0" required />
                                   <span class="span">ft</span>
                                 </div>
                                 <div class="bmi-inches me-2" id="s_cell" style="display: none">
-                                  <input type="text" name="r_c2" value="0" required />
+                                  <input type="text" name="r_c2" id="r_c2" value="0" required />
                                   <span class="span">in</span>
                                 </div>
                               </div>
@@ -236,8 +236,11 @@
                                   <option value="cm">
                                     centimeter (cm)
                                   </option>
-                                  <option value="in/ft">
+                                  <option value="ft/in">
                                     feets/inches
+                                  </option>
+                                  <option value="m">
+                                    meters (m)
                                   </option>
                                 </select>
                               </div>
@@ -248,7 +251,7 @@
                           <td><span>Weight</span></td>
                           <td>
                             <div class="wt">
-                              <input type="text" id="weight" name="weight" />
+                              <input type="text" id="weight" value="0" name="weight" />
                               <span class="span">kg</span>
                             </div>
                           </td>
@@ -267,8 +270,7 @@
                 </div>
                 <div class="col-md-6 mt-5 mt-md-0">
                   <div class="bmi-result">
-                    <span class="result-bmi">Your BMI is</span>
-                    <span class="result-val">20.06</span>
+                    
                   </div>
                   <div class="bmi-result-define">
                     <div class="d-lg-flex justify-content-between">
@@ -300,10 +302,6 @@
               </div>
             </div>
           </div>
-
-          <div id="result"></div>
-
-          <section class="my-5"></section>
         </div>
         <div class="col-lg-3">
           <div class="cate-points mb-4">
@@ -629,57 +627,81 @@
       const s_cell = document.getElementById("s_cell");
       const heightUnit = document.getElementById("height_unit");
       const bmiForm = document.getElementById("bmi_form");
-
+      const result = document.querySelector(".bmi-result");
+    
       heightUnit.addEventListener("change", (event) => {
-        const value = event.target.value;
+          const value = event.target.value;
 
-        if (value === 'ft' || value === 'cm') {
-          f_cell.style.display = 'inline-block';
-          s_cell.style.display = 'none';
-          if (value === 'cm') {
-            f_cell.querySelector('span').innerText = 'cm';
-          } else {
+          if (value === 'ft' || value === 'cm' || value === 'm') {
+            f_cell.style.display = 'inline-block';
+            s_cell.style.display = 'none';
+            if (value === 'cm') {
+              f_cell.querySelector('span').innerText = 'cm';
+            } else if (value === 'm') {
+              f_cell.querySelector('span').innerText = 'm';
+            } else {
+              f_cell.querySelector('span').innerText = 'ft';
+            }
+          } else if (value === 'in') {
+            f_cell.style.display = 'none';
+            s_cell.style.display = 'inline-block';
+          } else if (value === 'ft/in') {
+            f_cell.style.display = 'inline-block';
+            s_cell.style.display = 'inline-block';
             f_cell.querySelector('span').innerText = 'ft';
           }
-        } else if (value === 'in') {
-          f_cell.style.display = 'none';
-          s_cell.style.display = 'inline-block';
-        } else {
-          f_cell.style.display = 'inline-block';
-          s_cell.style.display = 'inline-block';
-          f_cell.querySelector('span').innerText = 'ft';
-        }
-      });
+        });
 
       // Function to calculate BMI
       function calculateBMI() {
         const weight = parseFloat(document.getElementById("weight").value);
         const height1 = parseFloat(document.getElementById("r_ca").value);
-        const height2 = parseFloat(document.getElementById("rc2").value);
-        const heightUnit = document.getElementById("height_unit").value;
+        const height2 = parseFloat(document.getElementById("r_c2").value);
+        const unit = heightUnit.value;
 
-        // Convert height to inches if necessary
+        // Convert height to meters if necessary
         let height;
-        if (heightUnit === "ft") {
-          height = height1 * 0.304;
-        } else if (heightUnit === "in") {
+        if (unit === "ft") {
+          height = height1 * 0.3048;
+        } else if (unit === "in") {
           height = height2 * 0.0254;
-        } else if (heightUnit === "cm") {
+        } else if (unit === "cm") {
           height = height1 * 0.01;
+        } else if (unit === "ft/in") {
+          height = height1 * 0.3048 + height2 * 0.0254;
         } else {
-          height = (height1 * 0.304) + (height2 * 0.0254);
+          height = height1;
+        }
+
+        // Check if height or weight is zero
+        if ((height === 0 || weight === 0) && (height === NaN || weight === NaN)) {
+          return;
         }
 
         // Calculate BMI
-        const bmi = (weight / (height * height)) * 703;
-        return bmi.toFixed(2); // Round to 2 decimal places
-      }
+        const bmi = weight / (height * height);
 
-      bmiForm.addEventListener("submit", (event) => {
+        // Format the BMI value
+        const formattedBMI = bmi % 1 === 0 ? bmi.toFixed(0) : bmi.toFixed(1);
+
+        return formattedBMI; // Return the formatted BMI value
+
+      }
+    
+      function handleFormSubmit(event) {
         event.preventDefault();
-        const bmiResult = calculateBMI();
-        console.log("BMI:", bmiResult);
-      });
+            const bmiResult = calculateBMI();
+            if (bmiResult) {
+              result.innerHTML = `<span class="result-bmi">Your BMI is</span><span class="result-val">${bmiResult}</span>`;
+        }
+      }
+    
+      function handleFormReset() {
+        result.innerHTML = ""; // Clear the BMI result
+      }
+    
+    bmiForm.addEventListener("submit", handleFormSubmit);
+    bmiForm.addEventListener("reset", handleFormReset);
     </script>
 
   </body>
